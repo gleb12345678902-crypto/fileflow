@@ -24,6 +24,9 @@ jobs:
         run: |
           mkdir -p www
           cp index.html www/index.html
+          mkdir -p android/app/src/main/res/mipmap-xxxhdpi
+          cp public/icons/files.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+          cp public/icons/files.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png
 
       - name: Setup Java
         uses: actions/setup-java@v4
