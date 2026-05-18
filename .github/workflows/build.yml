@@ -24,9 +24,6 @@ jobs:
         run: |
           mkdir -p www
           cp index.html www/index.html
-          mkdir -p android/app/src/main/res/mipmap-xxxhdpi
-          cp public/icons/files.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
-          cp public/icons/files.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -37,11 +34,20 @@ jobs:
       - name: Install Capacitor CLI
         run: npm install -g @capacitor/cli
 
+      - name: Remove existing android folder
+        run: rm -rf android
+
       - name: Capacitor add Android
         run: npx cap add android
 
       - name: Copy web assets
         run: npx cap copy android
+
+      - name: Copy icon
+        run: |
+          mkdir -p android/app/src/main/res/mipmap-xxxhdpi
+          cp public/icons/files.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+          cp public/icons/files.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png
 
       - name: Make gradlew executable
         run: chmod +x android/gradlew
