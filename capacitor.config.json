@@ -3,7 +3,8 @@
   "appName": "FileFlow",
   "webDir": "www",
   "android": {
-    "allowMixedContent": true
+    "allowMixedContent": true,
+    "icon": "public/icons/files.png"
   },
   "plugins": {
     "SplashScreen": {
