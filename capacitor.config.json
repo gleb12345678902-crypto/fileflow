@@ -1,0 +1,13 @@
+{
+  "appId": "com.gleb.fileflow",
+  "appName": "FileFlow",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": true
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  }
+}
