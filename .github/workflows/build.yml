@@ -43,11 +43,19 @@ jobs:
       - name: Copy web assets
         run: npx cap copy android
 
-      - name: Copy icon
+      - name: Copy icons
         run: |
-          mkdir -p android/app/src/main/res/mipmap-xxxhdpi
-          cp public/icons/files.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
-          cp public/icons/files.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png
+          for size in mdpi hdpi xhdpi xxhdpi xxxhdpi; do
+            mkdir -p android/app/src/main/res/mipmap-$size
+            cp public/icons/files.png android/app/src/main/res/mipmap-$size/ic_launcher.png
+            cp public/icons/files.png android/app/src/main/res/mipmap-$size/ic_launcher_round.png
+          done
+
+      - name: Patch AndroidManifest for file intents
+        run: |
+          MANIFEST=android/app/src/main/AndroidManifest.xml
+          INTENT='        <intent-filter>\n            <action android:name="android.intent.action.VIEW" />\n            <category android:name="android.intent.category.DEFAULT" />\n            <category android:name="android.intent.category.BROWSABLE" />\n            <data android:mimeType="application/pdf" />\n            <data android:mimeType="text/plain" />\n            <data android:mimeType="image/*" />\n            <data android:mimeType="application/vnd.openxmlformats-officedocument.wordprocessingml.document" />\n            <data android:mimeType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />\n            <data android:mimeType="application/vnd.openxmlformats-officedocument.presentationml.presentation" />\n        </intent-filter>'
+          sed -i "/<\/activity>/i\\$INTENT" $MANIFEST
 
       - name: Make gradlew executable
         run: chmod +x android/gradlew
