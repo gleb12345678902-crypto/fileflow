@@ -123,15 +123,14 @@
     #viewerHeader {
       background: var(--surface); padding: 14px 16px;
       display: flex; align-items: center; gap: 12px;
-      border-bottom: 1px solid var(--surface2);
-      flex-shrink: 0;
+      border-bottom: 1px solid var(--surface2); flex-shrink: 0;
     }
     #viewerContent {
       flex: 1; overflow: auto; position: relative;
     }
     #zoomContainer {
-      min-height: 100%; padding: 16px;
-      transform-origin: top left;
+      padding: 16px;
+      width: 100%;
     }
 
     /* SETTINGS */
@@ -141,18 +140,16 @@
     }
     .modal-overlay.open { display: flex; }
     .modal-sheet {
-      background: var(--surface);
-      border-radius: 24px 24px 0 0;
+      background: var(--surface); border-radius: 24px 24px 0 0;
       padding: 24px 20px 40px; width: 100%;
     }
-    .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+    .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; color: var(--text); }
     .theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .theme-btn {
       border: 2px solid var(--surface2); border-radius: 14px;
       padding: 16px; cursor: pointer; text-align: center;
       font-size: 14px; font-weight: 600;
-      background: var(--surface2); color: var(--text);
-      transition: all 0.2s;
+      background: var(--surface2); color: var(--text); transition: all 0.2s;
     }
     .theme-btn.active { border-color: var(--accent); }
     .theme-preview { width: 100%; height: 40px; border-radius: 8px; margin-bottom: 8px; }
@@ -235,6 +232,7 @@
   let currentTab = 'all';
   let currentTheme = localStorage.getItem('fileflow_theme') || 'dark';
   let viewerOpen = false;
+  let currentExt = '';
 
   // INIT THEME
   applyTheme(currentTheme);
@@ -274,7 +272,6 @@
     });
   }
 
-  // THEME
   function applyTheme(theme) {
     currentTheme = theme;
     document.body.className = 'theme-' + theme;
@@ -295,7 +292,6 @@
     }
   }
 
-  // TABS
   function setTab(tab, el) {
     currentTab = tab;
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -303,7 +299,6 @@
     renderList();
   }
 
-  // RENDER
   function renderList() {
     const query = document.getElementById('searchInput').value.toLowerCase().trim();
     const list = document.getElementById('fileList');
@@ -396,20 +391,17 @@
     document.getElementById('viewerTitle').textContent = name;
     document.getElementById('viewerModal').classList.add('open');
     viewerOpen = true;
-    history.pushState({viewer: true}, '');
+    currentExt = getExt(name);
 
     const container = document.getElementById('zoomContainer');
     container.innerHTML = '<div style="color:var(--text2);text-align:center;padding:40px">Загрузка...</div>';
-    container.style.transform = 'scale(1)';
-    container.style.transformOrigin = 'top left';
-    container.style.width = '100%';
+    container.style.cssText = 'padding:16px;width:100%;';
 
-    const ext = getExt(name);
-
-    if (['jpg','jpeg','png','gif','webp','svg','bmp'].includes(ext)) {
+    if (['jpg','jpeg','png','gif','webp','svg','bmp'].includes(currentExt)) {
       container.innerHTML = `<img src="${dataUrl}" style="max-width:100%;border-radius:12px;display:block;">`;
+      initPinchZoomImage(container.querySelector('img'));
 
-    } else if (ext === 'txt') {
+    } else if (currentExt === 'txt') {
       fetch(dataUrl).then(r => r.text()).then(text => {
         container.innerHTML = `<pre style="
           white-space:pre-wrap;word-break:break-word;
@@ -418,7 +410,7 @@
         ">${escHtml(text)}</pre>`;
       });
 
-    } else if (ext === 'pdf') {
+    } else if (currentExt === 'pdf') {
       pdfjsLib.GlobalWorkerOptions.workerSrc =
         'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
       container.innerHTML = '';
@@ -439,7 +431,7 @@
         container.innerHTML = '<p style="color:var(--danger);padding:20px">Ошибка загрузки PDF</p>';
       });
 
-    } else if (ext === 'docx') {
+    } else if (currentExt === 'docx') {
       fetch(dataUrl).then(r => r.arrayBuffer()).then(buf => {
         mammoth.convertToHtml({arrayBuffer: buf}).then(result => {
           container.innerHTML = `<div style="font-size:15px;line-height:1.7;color:var(--text)">
@@ -449,18 +441,20 @@
         container.innerHTML = '<p style="color:var(--danger);padding:20px">Ошибка загрузки DOCX</p>';
       });
 
-    } else if (['xlsx','xls','csv'].includes(ext)) {
+    } else if (['xlsx','xls','csv'].includes(currentExt)) {
       fetch(dataUrl).then(r => r.arrayBuffer()).then(buf => {
         const wb = XLSX.read(buf, {type:'array'});
         const ws = wb.Sheets[wb.SheetNames[0]];
         const html = XLSX.utils.sheet_to_html(ws);
-        container.innerHTML = `<div style="overflow-x:auto">
+        container.style.cssText = 'padding:8px;width:100%;overflow-x:auto;';
+        container.innerHTML = `
           <style>
-            table{border-collapse:collapse;width:100%;font-size:13px}
-            td,th{border:1px solid var(--surface2);padding:6px 10px;color:var(--text)}
-            th{background:var(--surface2);font-weight:600}
-            tr:nth-child(even){background:rgba(128,128,128,0.05)}
-          </style>${html}</div>`;
+            table{border-collapse:collapse;font-size:13px;}
+            td,th{border:1px solid var(--surface2);padding:6px 10px;
+              color:var(--text);white-space:nowrap;}
+            th{background:var(--surface2);font-weight:600;}
+            tr:nth-child(even){background:rgba(128,128,128,0.05);}
+          </style>${html}`;
       }).catch(() => {
         container.innerHTML = '<p style="color:var(--danger);padding:20px">Ошибка загрузки таблицы</p>';
       });
@@ -468,9 +462,6 @@
     } else {
       container.innerHTML = '<p style="color:var(--text2);padding:20px;text-align:center">Формат не поддерживается</p>';
     }
-
-    // PINCH TO ZOOM (все форматы)
-    initPinchZoom();
   }
 
   function closeViewer() {
@@ -479,47 +470,55 @@
     viewerOpen = false;
   }
 
-  // КНОПКА НАЗАД
+  // КНОПКА НАЗАД — через Capacitor App plugin
+  document.addEventListener('deviceready', function() {
+    if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App) {
+      window.Capacitor.Plugins.App.addListener('backButton', function() {
+        if (viewerOpen) {
+          closeViewer();
+        } else {
+          window.Capacitor.Plugins.App.exitApp();
+        }
+      });
+    }
+  });
+
+  // Запасной вариант через popstate
+  history.pushState(null, '');
   window.addEventListener('popstate', function() {
     if (viewerOpen) {
       closeViewer();
+      history.pushState(null, '');
     } else {
       history.pushState(null, '');
     }
   });
 
-  // PINCH TO ZOOM — работает для всех форматов через zoomContainer
-  function initPinchZoom() {
-    const viewer = document.getElementById('viewerContent');
-    const container = document.getElementById('zoomContainer');
+  // PINCH TO ZOOM для изображений
+  function initPinchZoomImage(img) {
     let scale = 1, lastScale = 1, startDist = 0;
-    let startX = 0, startY = 0, originX = 0, originY = 0;
-
-    viewer.addEventListener('touchstart', function(e) {
+    const wrap = img.parentElement;
+    wrap.addEventListener('touchstart', function(e) {
       if (e.touches.length === 2) {
         startDist = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
         );
-        originX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-        originY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
-        container.style.transformOrigin = `${originX}px ${originY}px`;
       }
     }, {passive: true});
-
-    viewer.addEventListener('touchmove', function(e) {
+    wrap.addEventListener('touchmove', function(e) {
       if (e.touches.length === 2) {
         const dist = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
         );
         scale = Math.min(Math.max(lastScale * (dist / startDist), 0.5), 5);
-        container.style.transform = `scale(${scale})`;
+        img.style.transform = `scale(${scale})`;
+        img.style.transformOrigin = 'center';
       }
     }, {passive: true});
-
-    viewer.addEventListener('touchend', function(e) {
-      if (e.touches.length < 2) lastScale = scale;
+    wrap.addEventListener('touchend', function() {
+      lastScale = scale;
     }, {passive: true});
   }
 
@@ -529,12 +528,6 @@
 
   // INIT
   renderList();
-
-  // Не дать приложению закрыться при первом нажатии назад
-  history.pushState(null, '');
-  window.addEventListener('popstate', function() {
-    if (!viewerOpen) history.pushState(null, '');
-  });
 </script>
 </body>
 </html>
