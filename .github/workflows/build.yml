@@ -43,7 +43,7 @@ jobs:
       - name: Copy web assets
         run: npx cap copy android
 
-      - name: Copy icons
+      - name: Copy icons AFTER cap copy
         run: |
           for size in mdpi hdpi xhdpi xxhdpi xxxhdpi; do
             mkdir -p android/app/src/main/res/mipmap-$size
