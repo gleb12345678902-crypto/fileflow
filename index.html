@@ -10,151 +10,92 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    /* ТЕМЫ */
     body.theme-dark {
-      --bg: #0f0f13;
-      --surface: #1a1a24;
-      --surface2: #24243a;
-      --accent: #7c6aff;
-      --accent2: #a78bfa;
-      --text: #f0f0f5;
-      --text2: #9090aa;
-      --danger: #ff6b6b;
+      --bg: #0f0f13; --surface: #1a1a24; --surface2: #24243a;
+      --accent: #7c6aff; --accent2: #a78bfa;
+      --text: #f0f0f5; --text2: #9090aa; --danger: #ff6b6b;
     }
     body.theme-amoled {
-      --bg: #000000;
-      --surface: #0a0a0a;
-      --surface2: #141414;
-      --accent: #7c6aff;
-      --accent2: #a78bfa;
-      --text: #ffffff;
-      --text2: #888888;
-      --danger: #ff6b6b;
+      --bg: #000000; --surface: #0a0a0a; --surface2: #141414;
+      --accent: #7c6aff; --accent2: #a78bfa;
+      --text: #ffffff; --text2: #888888; --danger: #ff6b6b;
     }
     body.theme-light {
-      --bg: #f0f0f5;
-      --surface: #ffffff;
-      --surface2: #e5e5ef;
-      --accent: #7c6aff;
-      --accent2: #5b4de0;
-      --text: #1a1a2e;
-      --text2: #666680;
-      --danger: #e53935;
+      --bg: #f0f0f5; --surface: #ffffff; --surface2: #e5e5ef;
+      --accent: #7c6aff; --accent2: #5b4de0;
+      --text: #1a1a2e; --text2: #666680; --danger: #e53935;
     }
     body.theme-green {
-      --bg: #0a0f0a;
-      --surface: #121a12;
-      --surface2: #1a261a;
-      --accent: #4caf50;
-      --accent2: #81c784;
-      --text: #e8f5e8;
-      --text2: #7a9a7a;
-      --danger: #ff6b6b;
+      --bg: #0a0f0a; --surface: #121a12; --surface2: #1a261a;
+      --accent: #4caf50; --accent2: #81c784;
+      --text: #e8f5e8; --text2: #7a9a7a; --danger: #ff6b6b;
     }
 
     :root { --radius: 16px; }
 
     body {
-      background: var(--bg);
-      color: var(--text);
+      background: var(--bg); color: var(--text);
       font-family: 'Segoe UI', sans-serif;
-      min-height: 100vh;
-      overflow-x: hidden;
+      min-height: 100vh; overflow-x: hidden;
       transition: background 0.3s, color 0.3s;
     }
     #app { display: flex; flex-direction: column; height: 100vh; }
 
-    /* HEADER */
     .header {
-      background: var(--surface);
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      background: var(--surface); padding: 16px;
+      display: flex; align-items: center; gap: 12px;
       border-bottom: 1px solid var(--surface2);
       position: sticky; top: 0; z-index: 100;
     }
     .header-title { font-size: 20px; font-weight: 700; color: var(--accent2); flex: 1; }
     .btn-icon {
-      background: var(--surface2);
-      border: none;
-      border-radius: 12px;
-      padding: 10px 12px;
-      font-size: 18px;
-      cursor: pointer;
+      background: var(--surface2); border: none;
+      border-radius: 12px; padding: 10px 12px;
+      font-size: 18px; cursor: pointer;
     }
     .btn-open {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      padding: 10px 18px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
+      background: var(--accent); color: #fff; border: none;
+      border-radius: 12px; padding: 10px 18px;
+      font-size: 15px; font-weight: 600; cursor: pointer;
     }
     .btn-open:active, .btn-icon:active { opacity: 0.7; }
 
-    /* SEARCH */
     .search-bar {
-      padding: 12px 16px;
-      background: var(--surface);
+      padding: 12px 16px; background: var(--surface);
       border-bottom: 1px solid var(--surface2);
     }
     .search-bar input {
-      width: 100%;
-      background: var(--surface2);
-      border: none;
-      border-radius: 10px;
-      padding: 10px 14px;
-      color: var(--text);
-      font-size: 15px;
-      outline: none;
+      width: 100%; background: var(--surface2); border: none;
+      border-radius: 10px; padding: 10px 14px;
+      color: var(--text); font-size: 15px; outline: none;
     }
     .search-bar input::placeholder { color: var(--text2); }
 
-    /* TABS */
     .tabs {
-      display: flex;
-      gap: 8px;
-      padding: 12px 16px;
-      overflow-x: auto;
-      background: var(--surface);
+      display: flex; gap: 8px; padding: 12px 16px;
+      overflow-x: auto; background: var(--surface);
       border-bottom: 1px solid var(--surface2);
       scrollbar-width: none;
     }
     .tabs::-webkit-scrollbar { display: none; }
     .tab {
-      background: var(--surface2);
-      border: none;
-      border-radius: 20px;
-      padding: 6px 16px;
-      color: var(--text2);
-      font-size: 13px;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s;
+      background: var(--surface2); border: none;
+      border-radius: 20px; padding: 6px 16px;
+      color: var(--text2); font-size: 13px;
+      cursor: pointer; white-space: nowrap; transition: all 0.2s;
     }
     .tab.active { background: var(--accent); color: #fff; }
 
-    /* FILE LIST */
-    .file-list {
-      flex: 1;
-      overflow-y: auto;
-      padding: 12px 16px;
-    }
+    .file-list { flex: 1; overflow-y: auto; padding: 12px 16px; }
     .empty-state {
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      height: 60vh; gap: 16px; color: var(--text2);
-      text-align: center;
+      height: 60vh; gap: 16px; color: var(--text2); text-align: center;
     }
     .empty-icon { font-size: 64px; }
     .file-card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      padding: 14px;
-      margin-bottom: 10px;
+      background: var(--surface); border-radius: var(--radius);
+      padding: 14px; margin-bottom: 10px;
       display: flex; align-items: center; gap: 14px;
       cursor: pointer; transition: background 0.15s;
       border: 1px solid transparent;
@@ -169,47 +110,52 @@
     .file-meta { font-size: 12px; color: var(--text2); margin-top: 4px; }
     .file-delete {
       background: none; border: none; color: var(--text2);
-      font-size: 20px; cursor: pointer; padding: 4px 8px;
-      border-radius: 8px;
+      font-size: 20px; cursor: pointer; padding: 4px 8px; border-radius: 8px;
     }
     .file-delete:active { color: var(--danger); }
 
-    /* SETTINGS MODAL */
+    /* VIEWER */
+    #viewerModal {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: var(--bg); flex-direction: column;
+    }
+    #viewerModal.open { display: flex; }
+    #viewerHeader {
+      background: var(--surface); padding: 14px 16px;
+      display: flex; align-items: center; gap: 12px;
+      border-bottom: 1px solid var(--surface2);
+      flex-shrink: 0;
+    }
+    #viewerContent {
+      flex: 1; overflow: auto; position: relative;
+    }
+    #zoomContainer {
+      min-height: 100%; padding: 16px;
+      transform-origin: top left;
+    }
+
+    /* SETTINGS */
     .modal-overlay {
       display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.6); z-index: 200;
-      align-items: flex-end;
+      background: rgba(0,0,0,0.6); z-index: 200; align-items: flex-end;
     }
     .modal-overlay.open { display: flex; }
     .modal-sheet {
       background: var(--surface);
       border-radius: 24px 24px 0 0;
-      padding: 24px 20px 40px;
-      width: 100%;
+      padding: 24px 20px 40px; width: 100%;
     }
-    .modal-title {
-      font-size: 18px; font-weight: 700;
-      margin-bottom: 20px; color: var(--text);
-    }
-    .theme-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
+    .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+    .theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .theme-btn {
-      border: 2px solid var(--surface2);
-      border-radius: 14px;
-      padding: 16px;
-      cursor: pointer;
-      text-align: center;
-      font-size: 14px;
-      font-weight: 600;
+      border: 2px solid var(--surface2); border-radius: 14px;
+      padding: 16px; cursor: pointer; text-align: center;
+      font-size: 14px; font-weight: 600;
+      background: var(--surface2); color: var(--text);
       transition: all 0.2s;
     }
     .theme-btn.active { border-color: var(--accent); }
-    .theme-btn .theme-preview {
-      width: 100%; height: 40px;
-      border-radius: 8px; margin-bottom: 8px;
-    }
+    .theme-preview { width: 100%; height: 40px; border-radius: 8px; margin-bottom: 8px; }
   </style>
 </head>
 <body class="theme-dark">
@@ -236,58 +182,50 @@
   <div class="file-list" id="fileList"></div>
 </div>
 
-<!-- VIEWER MODAL -->
-<div id="viewerModal" style="
-  display:none; position:fixed; inset:0; z-index:1000;
-  background:var(--bg); flex-direction:column;
-">
-  <div style="
-    background:var(--surface); padding:14px 16px;
-    display:flex; align-items:center; gap:12px;
-    border-bottom:1px solid var(--surface2);
-  ">
+<!-- VIEWER -->
+<div id="viewerModal">
+  <div id="viewerHeader">
     <button onclick="closeViewer()" style="
       background:none; border:none; color:var(--accent2);
-      font-size:24px; cursor:pointer;
+      font-size:24px; cursor:pointer; padding:0 8px 0 0;
     ">←</button>
     <span id="viewerTitle" style="
       flex:1; font-size:15px; font-weight:600;
       white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
     "></span>
   </div>
-  <div id="viewerContent" style="
-    flex:1; overflow:auto; padding:16px;
-    touch-action:pan-x pan-y;
-  "></div>
+  <div id="viewerContent">
+    <div id="zoomContainer"></div>
+  </div>
 </div>
 
-<!-- SETTINGS MODAL -->
+<!-- SETTINGS -->
 <div class="modal-overlay" id="settingsModal" onclick="closeSettings(event)">
   <div class="modal-sheet">
     <div class="modal-title">⚙️ Настройки</div>
-    <div style="font-size:13px; color:var(--text2); margin-bottom:12px;">Тема интерфейса</div>
+    <div style="font-size:13px;color:var(--text2);margin-bottom:12px;">Тема интерфейса</div>
     <div class="theme-grid">
       <div class="theme-btn active" id="btn-theme-dark" onclick="setTheme('dark')">
-        <div class="theme-preview" style="background:linear-gradient(135deg,#0f0f13,#1a1a24);border:1px solid #24243a"></div>
+        <div class="theme-preview" style="background:linear-gradient(135deg,#0f0f13,#1a1a24)"></div>
         🌙 Тёмная
       </div>
       <div class="theme-btn" id="btn-theme-amoled" onclick="setTheme('amoled')">
-        <div class="theme-preview" style="background:linear-gradient(135deg,#000,#0a0a0a);border:1px solid #141414"></div>
+        <div class="theme-preview" style="background:linear-gradient(135deg,#000,#0a0a0a)"></div>
         ⚫ AMOLED
       </div>
       <div class="theme-btn" id="btn-theme-light" onclick="setTheme('light')">
-        <div class="theme-preview" style="background:linear-gradient(135deg,#f0f0f5,#ffffff);border:1px solid #e5e5ef"></div>
+        <div class="theme-preview" style="background:linear-gradient(135deg,#f0f0f5,#fff)"></div>
         ☀️ Светлая
       </div>
       <div class="theme-btn" id="btn-theme-green" onclick="setTheme('green')">
-        <div class="theme-preview" style="background:linear-gradient(135deg,#0a0f0a,#1a261a);border:1px solid #4caf50"></div>
+        <div class="theme-preview" style="background:linear-gradient(135deg,#0a0f0a,#1a261a)"></div>
         🌿 Зелёная
       </div>
     </div>
   </div>
 </div>
 
-<!-- HIDDEN INPUT -->
+<!-- FILE INPUT -->
 <input type="file" id="fileInput" style="display:none"
   accept=".pdf,.txt,.docx,.xlsx,.xls,.csv,.pptx,.jpg,.jpeg,.png,.gif,.webp,.svg,.bmp"
   onchange="handleFileInput(event)">
@@ -296,14 +234,11 @@
   let files = JSON.parse(localStorage.getItem('fileflow_files') || '[]');
   let currentTab = 'all';
   let currentTheme = localStorage.getItem('fileflow_theme') || 'dark';
+  let viewerOpen = false;
 
   // INIT THEME
-  document.body.className = 'theme-' + currentTheme;
-  document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
-  const activeBtn = document.getElementById('btn-theme-' + currentTheme);
-  if (activeBtn) activeBtn.classList.add('active');
+  applyTheme(currentTheme);
 
-  // CATEGORIES
   const categories = {
     pdf: ['pdf'],
     doc: ['txt', 'docx'],
@@ -340,7 +275,7 @@
   }
 
   // THEME
-  function setTheme(theme) {
+  function applyTheme(theme) {
     currentTheme = theme;
     document.body.className = 'theme-' + theme;
     localStorage.setItem('fileflow_theme', theme);
@@ -349,7 +284,8 @@
     if (btn) btn.classList.add('active');
   }
 
-  // SETTINGS
+  function setTheme(theme) { applyTheme(theme); }
+
   function openSettings() {
     document.getElementById('settingsModal').classList.add('open');
   }
@@ -392,12 +328,11 @@
           <div class="file-name">${f.name}</div>
           <div class="file-meta">${formatSize(f.size)} · ${formatDate(f.date)}</div>
         </div>
-        <button class="file-delete" onclick="deleteFile(event, ${files.indexOf(f)})">🗑</button>
+        <button class="file-delete" onclick="deleteFile(event,${files.indexOf(f)})">🗑</button>
       </div>
     `).join('');
   }
 
-  // SAVE
   function saveFiles() {
     const meta = files.map(f => ({
       name: f.name, size: f.size, date: f.date, dataKey: f.dataKey
@@ -405,7 +340,6 @@
     localStorage.setItem('fileflow_files', JSON.stringify(meta));
   }
 
-  // DELETE
   function deleteFile(e, i) {
     e.stopPropagation();
     localStorage.removeItem('filedata_' + files[i].dataKey);
@@ -414,7 +348,6 @@
     renderList();
   }
 
-  // FILE PICKER
   function openFilePicker() {
     document.getElementById('fileInput').click();
   }
@@ -428,7 +361,7 @@
       try {
         localStorage.setItem('filedata_' + dataKey, ev.target.result);
       } catch(err) {
-        alert('Файл слишком большой. Он будет открыт, но не сохранён в истории.');
+        alert('Файл слишком большой. Откроется без сохранения в историю.');
       }
       const fileObj = {
         name: file.name, size: file.size,
@@ -445,7 +378,6 @@
     e.target.value = '';
   }
 
-  // OPEN FILE
   function openFile(i) {
     const f = files[i];
     let data = f.data;
@@ -459,33 +391,29 @@
     files[i].data = data;
     showViewer(f.name, data);
   }
-// BACK BUTTON
+// VIEWER
   function showViewer(name, dataUrl) {
     document.getElementById('viewerTitle').textContent = name;
-    document.getElementById('viewerModal').style.display = 'flex';
+    document.getElementById('viewerModal').classList.add('open');
+    viewerOpen = true;
     history.pushState({viewer: true}, '');
-    const content = document.getElementById('viewerContent');
-    content.innerHTML = '<div style="color:var(--text2);text-align:center;padding:40px">Загрузка...</div>';
+
+    const container = document.getElementById('zoomContainer');
+    container.innerHTML = '<div style="color:var(--text2);text-align:center;padding:40px">Загрузка...</div>';
+    container.style.transform = 'scale(1)';
+    container.style.transformOrigin = 'top left';
+    container.style.width = '100%';
+
     const ext = getExt(name);
 
     if (['jpg','jpeg','png','gif','webp','svg','bmp'].includes(ext)) {
-      content.innerHTML = `
-        <div id="zoomWrap" style="
-          overflow:hidden; width:100%; height:100%;
-          display:flex; align-items:center; justify-content:center;
-        ">
-          <img src="${dataUrl}" id="zoomImg" style="
-            max-width:100%; border-radius:12px;
-            transform-origin:center; transition:transform 0.1s;
-          ">
-        </div>`;
-      initPinchZoom(document.getElementById('zoomImg'));
+      container.innerHTML = `<img src="${dataUrl}" style="max-width:100%;border-radius:12px;display:block;">`;
 
     } else if (ext === 'txt') {
       fetch(dataUrl).then(r => r.text()).then(text => {
-        content.innerHTML = `<pre style="
-          white-space:pre-wrap; word-break:break-word;
-          font-size:14px; line-height:1.6; color:var(--text);
+        container.innerHTML = `<pre style="
+          white-space:pre-wrap;word-break:break-word;
+          font-size:14px;line-height:1.6;color:var(--text);
           font-family:monospace;
         ">${escHtml(text)}</pre>`;
       });
@@ -493,11 +421,8 @@
     } else if (ext === 'pdf') {
       pdfjsLib.GlobalWorkerOptions.workerSrc =
         'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-      const wrap = document.createElement('div');
-      content.innerHTML = '';
-      content.appendChild(wrap);
+      container.innerHTML = '';
       pdfjsLib.getDocument(dataUrl).promise.then(pdf => {
-        wrap.innerHTML = '';
         for (let p = 1; p <= pdf.numPages; p++) {
           pdf.getPage(p).then(page => {
             const scale = window.innerWidth / page.getViewport({scale:1}).width * 0.95;
@@ -506,23 +431,22 @@
             c.width = viewport.width;
             c.height = viewport.height;
             c.style.cssText = 'display:block;margin:0 auto 12px;border-radius:8px;max-width:100%';
-            wrap.appendChild(c);
+            container.appendChild(c);
             page.render({canvasContext: c.getContext('2d'), viewport});
           });
         }
       }).catch(() => {
-        content.innerHTML = '<p style="color:var(--danger);padding:20px">Ошибка загрузки PDF</p>';
+        container.innerHTML = '<p style="color:var(--danger);padding:20px">Ошибка загрузки PDF</p>';
       });
 
     } else if (ext === 'docx') {
       fetch(dataUrl).then(r => r.arrayBuffer()).then(buf => {
         mammoth.convertToHtml({arrayBuffer: buf}).then(result => {
-          content.innerHTML = `<div style="font-size:15px;line-height:1.7;color:var(--text)">
-            ${result.value}
-          </div>`;
+          container.innerHTML = `<div style="font-size:15px;line-height:1.7;color:var(--text)">
+            ${result.value}</div>`;
         });
       }).catch(() => {
-        content.innerHTML = '<p style="color:var(--danger);padding:20px">Ошибка загрузки DOCX</p>';
+        container.innerHTML = '<p style="color:var(--danger);padding:20px">Ошибка загрузки DOCX</p>';
       });
 
     } else if (['xlsx','xls','csv'].includes(ext)) {
@@ -530,59 +454,71 @@
         const wb = XLSX.read(buf, {type:'array'});
         const ws = wb.Sheets[wb.SheetNames[0]];
         const html = XLSX.utils.sheet_to_html(ws);
-        content.innerHTML = `<div style="overflow-x:auto">
+        container.innerHTML = `<div style="overflow-x:auto">
           <style>
             table{border-collapse:collapse;width:100%;font-size:13px}
             td,th{border:1px solid var(--surface2);padding:6px 10px;color:var(--text)}
             th{background:var(--surface2);font-weight:600}
             tr:nth-child(even){background:rgba(128,128,128,0.05)}
-          </style>${html}
-        </div>`;
+          </style>${html}</div>`;
       }).catch(() => {
-        content.innerHTML = '<p style="color:var(--danger);padding:20px">Ошибка загрузки таблицы</p>';
+        container.innerHTML = '<p style="color:var(--danger);padding:20px">Ошибка загрузки таблицы</p>';
       });
 
     } else {
-      content.innerHTML = '<p style="color:var(--text2);padding:20px;text-align:center">Формат не поддерживается</p>';
+      container.innerHTML = '<p style="color:var(--text2);padding:20px;text-align:center">Формат не поддерживается</p>';
     }
+
+    // PINCH TO ZOOM (все форматы)
+    initPinchZoom();
   }
 
   function closeViewer() {
-    document.getElementById('viewerModal').style.display = 'none';
-    document.getElementById('viewerContent').innerHTML = '';
+    document.getElementById('viewerModal').classList.remove('open');
+    document.getElementById('zoomContainer').innerHTML = '';
+    viewerOpen = false;
   }
 
-  // ПЕРЕХВАТ КНОПКИ НАЗАД
-  window.addEventListener('popstate', function(e) {
-    const modal = document.getElementById('viewerModal');
-    if (modal.style.display === 'flex') {
+  // КНОПКА НАЗАД
+  window.addEventListener('popstate', function() {
+    if (viewerOpen) {
       closeViewer();
+    } else {
+      history.pushState(null, '');
     }
   });
 
-  // PINCH TO ZOOM
-  function initPinchZoom(el) {
-    let scale = 1, lastScale = 1;
-    let startDist = 0;
-    el.parentElement.addEventListener('touchstart', function(e) {
+  // PINCH TO ZOOM — работает для всех форматов через zoomContainer
+  function initPinchZoom() {
+    const viewer = document.getElementById('viewerContent');
+    const container = document.getElementById('zoomContainer');
+    let scale = 1, lastScale = 1, startDist = 0;
+    let startX = 0, startY = 0, originX = 0, originY = 0;
+
+    viewer.addEventListener('touchstart', function(e) {
       if (e.touches.length === 2) {
         startDist = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
         );
+        originX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+        originY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+        container.style.transformOrigin = `${originX}px ${originY}px`;
       }
     }, {passive: true});
-    el.parentElement.addEventListener('touchmove', function(e) {
+
+    viewer.addEventListener('touchmove', function(e) {
       if (e.touches.length === 2) {
         const dist = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
         );
         scale = Math.min(Math.max(lastScale * (dist / startDist), 0.5), 5);
-        el.style.transform = `scale(${scale})`;
+        container.style.transform = `scale(${scale})`;
       }
     }, {passive: true});
-    el.parentElement.addEventListener('touchend', function(e) {
+
+    viewer.addEventListener('touchend', function(e) {
       if (e.touches.length < 2) lastScale = scale;
     }, {passive: true});
   }
@@ -593,6 +529,12 @@
 
   // INIT
   renderList();
+
+  // Не дать приложению закрыться при первом нажатии назад
+  history.pushState(null, '');
+  window.addEventListener('popstate', function() {
+    if (!viewerOpen) history.pushState(null, '');
+  });
 </script>
 </body>
 </html>
